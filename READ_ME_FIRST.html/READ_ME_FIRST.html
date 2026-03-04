@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🐰 BUNNYCLAW — The Tiny Yet Mighty Agent USB</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap');
+        
+        :root {
+            --pink: #ff00aa;
+            --lime: #00ff9f;
+            --black: #0a0a0a;
+        }
+        
+        body {
+            font-family: 'VT323', monospace;
+            background: linear-gradient(180deg, #0a0a0a 0%, #1a0022 100%);
+            color: var(--lime);
+            margin: 0;
+            padding: 0;
+            line-height: 1.4;
+            overflow-x: hidden;
+        }
+        
+        .scanlines {
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: repeating-linear-gradient(
+                to bottom,
+                transparent 0px,
+                rgba(0, 255, 159, 0.03) 1px,
+                transparent 2px
+            );
+            pointer-events: none;
+            z-index: 999;
+            animation: flicker 0.15s infinite alternate;
+        }
+        
+        @keyframes flicker {
+            0% { opacity: 0.95; }
+            100% { opacity: 1; }
+        }
+        
+        .container {
+            max-width: 920px;
+            margin: 40px auto;
+            padding: 30px;
+            border: 4px solid var(--pink);
+            box-shadow: 0 0 40px var(--pink),
+                        0 0 80px rgba(255, 0, 170, 0.4);
+            background: rgba(10, 10, 10, 0.95);
+            position: relative;
+        }
+        
+        header {
+            text-align: center;
+            padding: 20px 0 40px;
+            border-bottom: 3px dashed var(--lime);
+        }
+        
+        h1 {
+            font-family: 'Press Start 2P', cursive;
+            font-size: 3.2rem;
+            color: var(--pink);
+            text-shadow: 
+                0 0 10px var(--pink),
+                0 0 20px var(--pink),
+                4px 4px 0 #000;
+            margin: 0;
+            animation: glitch 1.5s infinite;
+        }
+        
+        @keyframes glitch {
+            0% { transform: translate(0); }
+            20% { transform: translate(-3px, 3px); }
+            40% { transform: translate(3px, -3px); }
+            60% { transform: translate(-2px, 2px); }
+            80% { transform: translate(2px, -2px); }
+            100% { transform: translate(0); }
+        }
+        
+        .subtitle {
+            font-size: 1.6rem;
+            color: #fff;
+            margin-top: 10px;
+            text-shadow: 0 0 15px var(--lime);
+        }
+        
+        .badge {
+            display: inline-block;
+            background: var(--pink);
+            color: #000;
+            padding: 6px 16px;
+            font-size: 1.1rem;
+            border: 3px solid #fff;
+            transform: rotate(-3deg);
+            margin-top: 15px;
+            font-weight: bold;
+        }
+        
+        section {
+            margin: 50px 0;
+        }
+        
+        h2 {
+            font-family: 'Press Start 2P', cursive;
+            color: #fff;
+            font-size: 1.8rem;
+            border-bottom: 3px solid var(--lime);
+            padding-bottom: 10px;
+            display: inline-block;
+        }
+        
+        .steps {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+        }
+        
+        .step-card {
+            background: #1a001f;
+            border: 3px solid var(--lime);
+            padding: 25px;
+            position: relative;
+            transition: all 0.3s;
+        }
+        
+        .step-card:hover {
+            transform: scale(1.05) rotate(1deg);
+            border-color: var(--pink);
+            box-shadow: 0 0 30px var(--pink);
+        }
+        
+        .step-card::before {
+            content: attr(data-step);
+            position: absolute;
+            top: -15px;
+            right: -15px;
+            background: var(--pink);
+            color: #000;
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            font-weight: bold;
+            border: 4px solid #fff;
+        }
+        
+        .highlight {
+            background: rgba(255, 0, 170, 0.15);
+            padding: 20px;
+            border-left: 8px solid var(--pink);
+            margin: 30px 0;
+            font-size: 1.3rem;
+        }
+        
+        .bunny {
+            font-size: 4rem;
+            animation: hop 1.2s infinite;
+            display: inline-block;
+        }
+        
+        @keyframes hop {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-15px); }
+        }
+        
+        button {
+            background: var(--pink);
+            color: #000;
+            border: none;
+            padding: 18px 40px;
+            font-family: 'Press Start 2P', cursive;
+            font-size: 1.3rem;
+            cursor: pointer;
+            box-shadow: 0 0 20px var(--pink);
+            transition: all 0.2s;
+        }
+        
+        button:hover {
+            transform: scale(1.1) rotate(2deg);
+            box-shadow: 0 0 40px #fff;
+        }
+        
+        footer {
+            text-align: center;
+            padding: 40px 0 20px;
+            font-size: 1.1rem;
+            border-top: 2px dashed var(--lime);
+        }
+        
+        .neon-text {
+            text-shadow: 
+                0 0 5px var(--lime),
+                0 0 10px var(--lime),
+                0 0 20px var(--pink);
+        }
+    </style>
+</head>
+<body>
+    <div class="scanlines"></div>
+    
+    <div class="container">
+        <header>
+            <h1>🐰 BUNNYCLAW</h1>
+            <p class="subtitle">THE TINY USB THAT CLAWS BACK</p>
+            <div class="badge">100% PRIVATE • ZERO CLOUD • RUNS ON ANYTHING</div>
+        </header>
+
+        <section>
+            <p style="font-size:1.6rem;text-align:center;max-width:700px;margin:0 auto;">
+                Your data stays in YOUR pocket.<br>
+                No accounts. No servers. No spying. Just pure, unfiltered AI that <span class="neon-text">HOPS</span> at your command.
+            </p>
+        </section>
+
+        <section>
+            <h2>⚡ HOW TO UNLEASH THE BUNNY (30 seconds flat)</h2>
+            <div class="steps">
+                <div class="step-card" data-step="1">
+                    <strong>PLUG IT IN</strong><br>
+                    <small>Windows • Mac • Linux • Even that dusty library PC</small>
+                </div>
+                <div class="step-card" data-step="2">
+                    <strong>OPEN Ask-Bunny.txt</strong><br>
+                    <small>Type anything. Like: “Roast my ex’s dating profile” or “Plan a San Jose weekend that doesn’t suck”</small>
+                </div>
+                <div class="step-card" data-step="3">
+                    <strong>HIT SAVE (Ctrl+S)</strong><br>
+                    <small>Wait 20–60 seconds…</small>
+                </div>
+                <div class="step-card" data-step="4">
+                    <strong>BOOM.</strong><br>
+                    <small>BunnyClaw appends your answer + auto-creates any files, images, or code you asked for.</small>
+                </div>
+            </div>
+        </section>
+
+        <div class="highlight">
+            <span style="font-size:2rem;">💥 FIRST-TIME SETUP (ONE TIME ONLY):</span><br><br>
+            1. Download <a href="https://ollama.com" target="_blank" style="color:var(--pink);text-decoration:underline;">Ollama</a> (literally 2 clicks)<br>
+            2. Open terminal and type:<br>
+            <code style="background:#000;padding:8px 12px;display:block;margin:12px 0;font-size:1.3rem;">ollama pull qwen2.5:3b</code>
+            <br>
+            That’s it. Forever offline. Forever yours.
+        </div>
+
+        <section style="text-align:center;">
+            <button onclick="window.scrollTo({top: document.body.scrollHeight, behavior: 'smooth'})">
+                🚀 I’M READY — GIVE ME THE FULL POWER
+            </button>
+        </section>
+
+        <section>
+            <h2>WHY BUNNYCLAW SLAPS HARDER THAN EVERY OTHER AGENT</h2>
+            <ul style="font-size:1.4rem; line-height:2; padding-left:20px;">
+                <li>✅ Runs 100% locally — your secrets die with the USB</li>
+                <li>✅ No subscriptions. No logins. No “terms of service” nonsense</li>
+                <li>✅ Creates real files on your desktop (docs, code, images, plans)</li>
+                <li>✅ Tiny 3B model that’s stupidly fast even on potato laptops</li>
+                <li>✅ Bunny-themed chaos mode activated by default</li>
+            </ul>
+        </section>
+
+        <footer>
+            <p style="font-size:2rem;margin:0;">🐰 <strong>DRAG THE BUNNYCLAW FOLDER TO YOUR DESKTOP FOR MAXIMUM SPEED</strong> 🐰</p>
+            <p style="margin-top:30px;opacity:0.7;">
+                Made with love (and a little bit of evil) in a garage somewhere near San Jose<br>
+                <span style="font-size:0.9rem;">Your personal agent. Your rules. Their problem.</span>
+            </p>
+        </footer>
+    </div>
+    
+    <script>
+        // Easter egg: type "bunny" anywhere to make the title hop faster
+        document.addEventListener('keydown', (e) => {
+            if (e.key.toLowerCase() === 'b' && 
+                document.activeElement.tagName !== "INPUT" && 
+                document.activeElement.tagName !== "TEXTAREA") {
+                document.querySelector('h1').style.animationDuration = '0.4s';
+                setTimeout(() => {
+                    document.querySelector('h1').style.animationDuration = '1.5s';
+                }, 1200);
+            }
+        });
+    </script>
+</body>
+</html>
