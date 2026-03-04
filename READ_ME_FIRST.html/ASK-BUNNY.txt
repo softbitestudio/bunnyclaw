@@ -1,0 +1,5 @@
+Type your request here and SAVE the file.
+
+BunnyClaw will read it, think, use tools if needed, and append the answer below this line.
+
+Example: "Plan a chill weekend in San Jose for someone new to AI"
