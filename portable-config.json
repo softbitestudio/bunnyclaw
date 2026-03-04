@@ -1,0 +1,13 @@
+{
+"defaults": {
+  "model": "qwen 2.5:3b",
+  "provider": "ollama"
+},
+"ollama": {
+  "apibase": "http://localhost:11434"
+},
+"tools": {
+  "restrictToWorkspace": true
+},
+"workspace": "./workspace"
+} 
